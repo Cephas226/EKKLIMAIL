@@ -33,8 +33,20 @@ export class ReactiveBasicComponent implements OnInit {
     });
 
   }
-  sendVar(){
+  sendNom(){
     this.sharedVarParent=this.myContent+'[nom_prenom]'
+    console.log(this.sharedVarParent)
+  }
+  semaine1(){
+    this.sharedVarParent=this.myContent+'[semaine1]'
+    console.log(this.sharedVarParent)
+  }
+  semaine2(){
+    this.sharedVarParent=this.myContent+'[semaine2]'
+    console.log(this.sharedVarParent)
+  }
+  semaine3(){
+    this.sharedVarParent=this.myContent+'[semaine3]'
     console.log(this.sharedVarParent)
   }
   onSubmit() {

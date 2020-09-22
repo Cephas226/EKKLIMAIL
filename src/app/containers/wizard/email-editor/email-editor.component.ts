@@ -26,40 +26,7 @@ export class EmailEditorComponent {
     this.sharedVarChange.emit(newValue);
   }
   onContentChanged = (event) =>{
-    // console.log(event.html);
-    this.content=event.html
-    this.valueChange.emit(event.html);
+    this.content=event.text
+    this.valueChange.emit(event.text);
   }
-  // public form:FormGroup;
-  // public content:AbstractControl;
-  // @ViewChild('editor') editor;
-  // @Output() valueChange = new EventEmitter();
-  
-  // modulesBubble = {
-  //   toolbar: [
-  //     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-  //     [
-  //       { list: 'ordered' },
-  //       { list: 'bullet' },
-  //       { indent: '-1' },
-  //       { indent: '+1' }
-  //     ],
-  //     ['link'],
-  //     ['clean']
-  //   ]
-  // };
-  // constructor(private _fb:FormBuilder) {
-  //   this.form = _fb.group({
-  //     'content': ['<div><p>{{toto}}</p></div>', Validators.compose([Validators.required])],
-  //   });
-  //   this.content = this.form.controls['content'];
-  //  }
-
-  // ngOnInit(): void {
- 
-  // }
-  // logChange($event) {
-  //    console.log($event);
-  //   // this.valueChange.emit($event.content.ops[0]);
-  //  }
 }
