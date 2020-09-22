@@ -8,9 +8,12 @@ import {multiCheckboxValidator} from './../custom.validators';
 })
 export class ReactiveBasicComponent implements OnInit {
   basicForm: FormGroup;
-  fruit: string;
+  fruit: string
+  sharedVarParent: string;
+  htmlText ="<p>Testing</p>"
   variableMail = new FormArray([]);
   qtd:any[] ;
+  myContent: any;
   constructor() {
 
    }
@@ -28,17 +31,22 @@ export class ReactiveBasicComponent implements OnInit {
         check1: new FormControl(false)
       }, multiCheckboxValidator())
     });
+
   }
-  clickme(){
-    this.fruit='cooly'
+  sendVar(){
+    this.sharedVarParent=this.myContent+'[nom_prenom]'
+    console.log(this.sharedVarParent)
   }
   onSubmit() {
-    console.log(this.basicForm);
+    // console.log(this.basicForm);
   }
-  logChange($event){
-    console.log($event.content.ops[0]);
-  }
-  addVariable() {
-    this.variableMail.push(new FormControl(''));
+  // logChange($event){
+  //   // console.log($event.content.ops[0]);
+  // }
+  // addVariable() {
+  //   this.variableMail.push(new FormControl(''));
+  // }
+  displayEmailVariable($event) {
+    this.myContent=$event
   }
 }

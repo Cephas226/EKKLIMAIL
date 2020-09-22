@@ -21,13 +21,12 @@ import { QuillModule } from 'ngx-quill'
     WizardValidationComponent,
     WizardIconsComponent,
     WizardVerticalComponent,
-    EmailEditorComponent
+    // EmailEditorComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModuleAngular,
-    QuillModule.forRoot(),
     TranslateModule,
     TexteditorModule,
     FormValidationsContainersModule,

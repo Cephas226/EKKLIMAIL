@@ -79,7 +79,5 @@ export class WizardValidationComponent implements OnInit {
     console.log(event);
     this.files.push(...event.addedFiles);
   }
-  displayEmailVariable($event) {
-    console.log($event)
-  }
+
 }

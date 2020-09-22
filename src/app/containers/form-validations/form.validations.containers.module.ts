@@ -16,12 +16,14 @@ import { TexteditorModule } from 'ng-texteditor';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatSliderModule } from '@angular/material/slider';
 import { QuillModule } from 'ngx-quill';
+import { EmailEditorComponent } from '../wizard/email-editor/email-editor.component';
 @NgModule({
   declarations: [
     TemplateBasicComponent,
     TemplateCommonComponent,
     ReactiveBasicComponent,
     ReactiveCommonComponent,
+    EmailEditorComponent,
     ReactiveExternalComponent,
     LayoutsValidationComponent,
     TooltipPositionsComponent
@@ -32,6 +34,7 @@ import { QuillModule } from 'ngx-quill';
     FormsModuleAngular,
     MatSliderModule,
     MatChipsModule,
+    QuillModule.forRoot(),
     ReactiveFormsModule,
     TranslateModule,
     NgSelectModule,

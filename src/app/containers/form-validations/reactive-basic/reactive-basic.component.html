@@ -24,7 +24,7 @@
       </div>
       <div class="form-group">
         <mat-chip-list aria-label="Fish selection">
-          <mat-chip color="primary" color="primary"selected (click)="clickme()">Nom et Prenom(s)</mat-chip>
+          <mat-chip color="primary" color="primary"selected (click)="sendVar()">Nom et Prenom(s)</mat-chip>
           <mat-chip color="primary" selected>Semaine 1</mat-chip>
           <mat-chip color="primary" selected>Semaine 2</mat-chip>
           <mat-chip color="primary" selected>Semaine 3</mat-chip>
@@ -78,5 +78,8 @@
       <!-- <button class="btn btn-primary" type="submit">{{ 'forms.submit' | translate }}</button> -->
     </form>
     <!-- <ng-texteditor  [(ngModel)]="fruit"></ng-texteditor> -->
+    <app-email-editor 
+    [(sharedVar)]="sharedVarParent"
+    (valueChange)="displayEmailVariable($event)"></app-email-editor>
   </div>
 </div>
