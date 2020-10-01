@@ -3,7 +3,7 @@
     <div class="card mb-4">
       <div class="card-body">
         <!-- <h5 class="mb-4">{{'editors.quill-standart' | translate}}</h5> -->
-              <quill-editor #editor [placeholder]="''"
+              <quill-editor #editor [placeholder]="'Entre votre mail'"
               (ngModelChange)="onChangeVar($event)"
               [ngModel]="sharedVar"  (onContentChanged)="onContentChanged($event)"></quill-editor> 
       </div>

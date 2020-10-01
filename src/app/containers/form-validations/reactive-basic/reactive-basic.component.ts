@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import {multiCheckboxValidator} from './../custom.validators';
+import { Person, DataService } from './data.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reactive-basic',
@@ -13,8 +15,13 @@ export class ReactiveBasicComponent implements OnInit {
   htmlText ="<p>Testing</p>"
   variableMail = new FormArray([]);
   qtd:any[] ;
-  myContent: any;
-  constructor() {
+  myContent= " ";
+  people: Person[] = [];
+  selectedPeople = [];
+  parentVar =[]
+  allVar: any;
+  chip: any;
+  constructor(private dataService: DataService) {
 
    }
 
@@ -31,34 +38,37 @@ export class ReactiveBasicComponent implements OnInit {
         check1: new FormControl(false)
       }, multiCheckboxValidator())
     });
+    this.dataService.getPeople()
+    .pipe(map(x => x.filter(y => !y.disabled)))
+    .subscribe((res) => {
+        this.people = res;
+        this.selectedPeople = [this.people[0].id];
+    });
+     // this.getAllData()
+  }
+
+  variableClick(chip){
+    console.log(chip)
+    if(chip.value){
+      this.sharedVarParent=this.myContent+"["+chip.value+"]"
+    }
+  }
+
+  displayMe(event){
+    console.log(event)
+  }
+  // displayEmailVariable($event) {
+  //   this.myContent=$event
+  // }
+  // getAllData(){
+  //   this.allVar=null
+  //   this.dataService.getuploadVar().subscribe(u=>{
+  //     this.allVar=u
+  // //   this.chip.emit(this.allVar)
+  //   })
+  // }
+  onSubmit(){
 
   }
-  sendNom(){
-    this.sharedVarParent=this.myContent+'[nom_prenom]'
-    console.log(this.sharedVarParent)
-  }
-  semaine1(){
-    this.sharedVarParent=this.myContent+'[semaine1]'
-    console.log(this.sharedVarParent)
-  }
-  semaine2(){
-    this.sharedVarParent=this.myContent+'[semaine2]'
-    console.log(this.sharedVarParent)
-  }
-  semaine3(){
-    this.sharedVarParent=this.myContent+'[semaine3]'
-    console.log(this.sharedVarParent)
-  }
-  onSubmit() {
-    // console.log(this.basicForm);
-  }
-  // logChange($event){
-  //   // console.log($event.content.ops[0]);
-  // }
-  // addVariable() {
-  //   this.variableMail.push(new FormControl(''));
-  // }
-  displayEmailVariable($event) {
-    this.myContent=$event
-  }
 }
+

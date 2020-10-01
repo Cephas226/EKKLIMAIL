@@ -2,6 +2,23 @@
   <div class="card-body">
     <!-- <h6 class="mb-4">{{ 'forms.basic' | translate }}</h6> -->
     <h6 class="mb-4">Nouveau message</h6>
+    <ng-select
+            [items]="people"
+            [multiple]="true"
+            bindLabel="email"
+            groupBy="gender"
+            [selectableGroup]="true"
+            [selectableGroupAsModel]="false"
+            [closeOnSelect]="false"
+            bindValue="id"
+            [(ngModel)]="selectedPeople">
+            <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> Tout selectionnez
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.name}}
+            </ng-template>
+         </ng-select>
     <form [formGroup]="basicForm" #form="ngForm" (ngSubmit)="onSubmit()" novalidate class="tooltip-label-right">
       <!-- <div class="form-group error-l-50">
         <label>{{ 'forms.name' | translate }}</label>
@@ -11,7 +28,7 @@
       </div> -->
       <div class="form-group">
         <label>{{ 'forms.email' | translate }}</label>
-        <input type="email" class="form-control" formControlName="email">
+        <!-- <input type="email" class="form-control" formControlName="email"> -->
         <div *ngIf="basicForm.get('email').errors?.required && form.submitted" class="invalid-tooltip">Email is required</div>
         <div *ngIf="basicForm.get('email').errors?.email && form.submitted" class="invalid-tooltip">Email must be a valid address</div>
       </div>
@@ -22,13 +39,15 @@
         <div *ngIf="basicForm.get('name').errors?.required && form.submitted" class="invalid-tooltip">Name is required!</div>
         <div *ngIf="basicForm.get('name').errors?.minlength && form.submitted" class="invalid-tooltip">Name must contain at least 2 characters!</div>
       </div>
+      <p>Veuillez selectionnez les champs à intégrer</p>
       <div class="form-group">
-        <mat-chip-list aria-label="Fish selection">
-          <mat-chip color="primary" color="primary"selected (click)="sendNom()">Nom et Prenom(s)</mat-chip>
-          <mat-chip color="primary" selected (click)="semaine1()">Semaine 1</mat-chip>
-          <mat-chip color="primary" selected (click)="semaine2()">Semaine 2</mat-chip>
-          <mat-chip color="primary" selected (click)="semaine3()"> Semaine 3</mat-chip>
-        </mat-chip-list>
+         <!-- <my-chip></my-chip> -->
+         <!-- <my-chip [movie]= "movieSelected"></my-chip> -->
+        <!-- <mat-chip-list aria-label="Fish selection">
+          <mat-chip
+           *ngFor="let chip of allVar | keyvalue" 
+           selected [color]="chip.color"  (click)="variableClick(chip)" >{{chip.value}}</mat-chip>
+        </mat-chip-list> -->
       </div>
       <!-- <div class="form-group">
         <label>{{ 'forms.options' | translate }}</label>
@@ -78,8 +97,8 @@
       <!-- <button class="btn btn-primary" type="submit">{{ 'forms.submit' | translate }}</button> -->
     </form>
     <!-- <ng-texteditor  [(ngModel)]="fruit"></ng-texteditor> -->
-    <app-email-editor 
+    <!-- <app-email-editor 
     [(sharedVar)]="sharedVarParent"
-    (valueChange)="displayEmailVariable($event)"></app-email-editor>
+    (valueChange)="displayEmailVariable($event)"></app-email-editor> -->
   </div>
 </div>

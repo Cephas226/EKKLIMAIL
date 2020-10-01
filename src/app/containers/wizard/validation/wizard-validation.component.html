@@ -19,14 +19,50 @@
       </aw-wizard-step>
 
       <aw-wizard-step stepTitle="Etape 2" style="min-height: 120px;">
-        <app-reactive-basic></app-reactive-basic>
-        
+          <form [formGroup]="basicForm"  (ngSubmit)="onSubmit()">
+              <ng-select
+              [items]="people"
+              [multiple]="true"
+              [closeOnSelect]="false"
+              [searchable]="false"
+              bindLabel="name"
+              placeholder="Choisissez un email"
+              formControlName="selectedPeople">
+          </ng-select>
+            <!-- <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> Tout selectionnez
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.name}}
+            </ng-template> -->
+            
+            <mat-form-field class="example-form-field">
+                <mat-label>Objet</mat-label>
+                <input type="text" matInput formControlName="objet" placeholder="Objet">
+              </mat-form-field>
+              <!-- <input type = "text" name = "objet" placeholder = "objet" ngModel> -->
+              <div class="form-group">
+                  <mat-chip-list aria-label="Color selection">
+                    <mat-chip *ngFor="let chip of allVar | keyvalue"
+                     selected [color]="chip.color" 
+                     (click)="variableClick(chip)">
+                      {{chip.value}}
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+                <app-email-editor 
+                [(sharedVar)]="sharedVarParent"
+                (valueChange)="displayEmailVariable($event)"></app-email-editor>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary" awPreviousStep disabled>Retour</button>{{" "}}
+                    <button type="submit" class="btn btn-primary" (click)="onNextStep1()">Envoyez</button>
+                </div>
+           </form>
+       
+        <!-- <app-reactive-basic></app-reactive-basic> -->
         <!-- <ng-texteditor></ng-texteditor> -->
        
-        <div class="text-center">
-            <button type="button" class="btn btn-primary" awPreviousStep disabled>Retour</button>{{" "}}
-            <button type="button" class="btn btn-primary" (click)="onNextStep1()">Suivant</button>
-        </div>
+        
       </aw-wizard-step>
 
       <aw-wizard-step stepTitle="Etape 3" style="min-height: 120px;">

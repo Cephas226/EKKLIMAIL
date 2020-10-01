@@ -15,7 +15,9 @@ ngx-dropzone,
 	border-radius: 5px;
 	font-size: 20px;
 }
-
+.example-form-field {
+	width: 100%;
+  }
 .custom-dropzone.ngx-dz-hovered {
   border: 5px solid rgb(235, 79, 79);
 }

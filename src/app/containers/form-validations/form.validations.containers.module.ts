@@ -15,15 +15,16 @@ import { TooltipPositionsComponent } from './tooltip-positions/tooltip-positions
 import { TexteditorModule } from 'ng-texteditor';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatSliderModule } from '@angular/material/slider';
-import { QuillModule } from 'ngx-quill';
-import { EmailEditorComponent } from '../wizard/email-editor/email-editor.component';
+
+
 @NgModule({
   declarations: [
     TemplateBasicComponent,
     TemplateCommonComponent,
     ReactiveBasicComponent,
     ReactiveCommonComponent,
-    EmailEditorComponent,
+    // EmailEditorComponent,
+   // MyChipComponent,
     ReactiveExternalComponent,
     LayoutsValidationComponent,
     TooltipPositionsComponent
@@ -34,7 +35,7 @@ import { EmailEditorComponent } from '../wizard/email-editor/email-editor.compon
     FormsModuleAngular,
     MatSliderModule,
     MatChipsModule,
-    QuillModule.forRoot(),
+   
     ReactiveFormsModule,
     TranslateModule,
     NgSelectModule,
