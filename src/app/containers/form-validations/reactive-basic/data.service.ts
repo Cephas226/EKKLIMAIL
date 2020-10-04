@@ -15,7 +15,11 @@ export interface Person {
     phone: string;
     disabled?: boolean;
 }
-
+export interface EmailContent {
+    objet:string;
+    person:any;
+    content:string
+}
 @Injectable({
     providedIn: 'root'
 })
@@ -31,9 +35,14 @@ export class DataService {
     }
 
     getuploadVar() {
-        return this.http.get<any[]>('http://localhost:3000');
+        return this.http.get<any[]>('http://localhost:3000/headers');
     }
-
+    getuploadData() {
+        return this.http.get<any[]>('http://localhost:3000/excelData');
+    }
+    postEmailContent(emailContent) {
+        return this.http.post('http://localhost:3000/sendmail', emailContent)
+    }
 
     getAlbums() {
         return this.http.get<any[]>('https://jsonplaceholder.typicode.com/albums');

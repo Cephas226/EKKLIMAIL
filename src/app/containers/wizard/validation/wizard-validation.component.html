@@ -25,7 +25,7 @@
               [multiple]="true"
               [closeOnSelect]="false"
               [searchable]="false"
-              bindLabel="name"
+              bindLabel="Prenom_nom"
               placeholder="Choisissez un email"
               formControlName="selectedPeople">
           </ng-select>
@@ -57,6 +57,7 @@
                     <button type="button" class="btn btn-primary" awPreviousStep disabled>Retour</button>{{" "}}
                     <button type="submit" class="btn btn-primary" (click)="onNextStep1()">Envoyez</button>
                 </div>
+                <pre>{{sharedVarParent|json}}</pre>
            </form>
        
         <!-- <app-reactive-basic></app-reactive-basic> -->

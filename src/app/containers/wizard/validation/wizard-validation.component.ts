@@ -1,11 +1,11 @@
+ 
 import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { WizardComponent as ArcWizardComponent } from 'angular-archwizard';
 import { AngularFileUploaderComponent, AngularFileUploaderConfig } from 'angular-file-uploader';
-import { DataService, Person } from '../../form-validations/reactive-basic/data.service';
-import { map } from 'rxjs/internal/operators/map';
-//import { MyChipComponent } from '../../form-validations/reactive-basic/reactive-basic.component';
+import { DataService, Person, EmailContent } from '../../form-validations/reactive-basic/data.service';
  
+
 
 @Component({
   selector: 'app-wizard-validation',
@@ -24,8 +24,9 @@ export class WizardValidationComponent implements OnInit {
   resetUpload3: boolean;
   resetUpload2: boolean;
   posting = false;
-  sharedVarParent: string;
-  myContent= " ";
+  sharedVarParent= "-";
+  sharedVarParentToSend: string;
+  myContent= "-";
   value = 'Objet';
   objet:string;
   data: any = {
@@ -62,10 +63,14 @@ export class WizardValidationComponent implements OnInit {
   };
   @Output() 
   chip = new EventEmitter()
-  people: Person[] = [];
+  people=[];
   selectedPeople = [];
+  dataTosend:any=[];
+  userInfo=[];
+  odoo=[]
   docUpload(env) {
     console.log(env);
+    this.getAllVarData()
     this.getAllData()
   }
   basicForm = new FormGroup({
@@ -77,34 +82,45 @@ export class WizardValidationComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.displayData()
-   this.objet='test'
    this.basicForm = this.fb.group({
     objet: [null, Validators.required],
     selectedPeople:this.selectedPeople
   });
   }
-  displayData() {
-    this.dataService.getPeople()
-    .pipe(map(x => x.filter(y => !y.disabled)))
-    .subscribe((res) => {
-        this.people = res;
-        this.selectedPeople = [this.people[0].id];
-    });
-  }
+  // ngAfterViewInit(): void {
+  //   this.getAllData()
+  // }
   onClickSubmit() {
     alert("Cooly");
  }
-  getAllData(){
+  getAllVarData(){
     this.allVar=null
     this.dataService.getuploadVar().subscribe(u=>{
       this.allVar=u
      this.chip.emit(this.allVar)
     })
   }
+  getAllData(){
+    this.selectedPeople=null
+    this.dataService.getuploadData()
+    .subscribe((res) => {
+        this.people = res;
+        // if( this.people){
+        //   this.selectedPeople = [this.people];
+        // }
+        // console.log(this.selectedPeople)
+    });
+
+  }
   onSubmit(){
-    console.log(this.basicForm.value)
-    console.log(this.sharedVarParent)
+    this.dataService.postEmailContent(
+      {
+        objet:this.basicForm.value['objet'],
+        person:this.basicForm.value['selectedPeople'],
+        content:this.sharedVarParent,
+    }).subscribe(e=>{
+      console.log(e)
+    })
   }
   onNextStep1() {
     this.wizard.goToNextStep()
@@ -118,7 +134,7 @@ export class WizardValidationComponent implements OnInit {
   displayEmailVariable($event) {
     this.myContent=$event
   }
-  // getAllData(){
+  // getAllVarData(){
   //   this.allVar=null
   //   this.dataService.getuploadVar().subscribe(u=>{
   //     this.allVar=u
@@ -138,16 +154,28 @@ export class WizardValidationComponent implements OnInit {
   }
 
   variableClick(chip){
-    console.log(chip)
     if(chip.value){
-      this.sharedVarParent=this.myContent+"["+chip.value+"]"
+      // this.sharedVarParent.replace(/[^]$/,chip.value)
+     // this.sharedVarParentToSend=''
+    //  this.myContent.replace(/\n|\r/g, "")
+     this.sharedVarParent=this.myContent+"["+chip.value+"]"
+    // this.sharedVarParent.replace(/^ \n/g, "-").trim()
+    //  if(this.sharedVarParent.includes("["+chip.value+"]")){
+    //  this.sharedVarParent.replace("["+chip.value+"]",chip.value)  
+    //   ///console.log(this.sharedVarParentToSend)
+    //  }
+  
+    // this.sharedVarParent=this.myContent+"["+chip.value+"]"
+    // console.log(this.sharedVarParent)
+      // 
+      // this.sharedVarParentToSend=this.sharedVarParent.replace("["+chip.value+"]",chip.value)
+     //  console.log(this.sharedVarParentToSend)
+
+    //  console.log(this.sharedVarParent.replace("[",''))
+      // this.sharedVarParent=this.myContent+""+'person.'+chip.value+""
     }
   }
-  // testEmit(event){
-  //   console.log(event)
-  // };
   onSelect(event) {
-    console.log(event);
     this.files.push(...event.addedFiles);
   }
   
@@ -161,7 +189,7 @@ export class MyChipComponent implements OnInit {
 
   message = 'Hola Mundo!';
   ngOnInit() {
-    //console.log(name)
+
   }
   constructor(private dataService: DataService) {
 
